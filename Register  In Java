@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+
+        // Read the name input
+        String name = sc.nextLine().toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+
+        // Check if the name matches the allowed names
+        if (name.equals("samar") || name.equals("ujjwal") || name.equals("aman") || name.equals("john") || 
+            name.equals("vivek") || name.equals("yash") || name.equals("vishal")) {
+            System.out.println("You Can Enter In This Class");
+        } else {
+            System.out.println("You Can Not Enter In This Class, Because Your Name is Not Registered In This School. Please go to the counter for assistance to register your name in this school.");
+        }
+
+        sc.close(); // Close Scanner
+    }
+}
