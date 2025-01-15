@@ -1,0 +1,392 @@
+1. Arrays
+1.1 Linear Search
+java
+Copy code
+public class LinearSearch {
+    public static int linearSearch(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i;  // Return the index if target is found
+            }
+        }
+        return -1;  // Return -1 if target is not found
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30, 40, 50};
+        int target = 30;
+        System.out.println("Index of " + target + ": " + linearSearch(arr, target));
+    }
+}
+1.2 Binary Search (on a sorted array)
+java
+Copy code
+public class BinarySearch {
+    public static int binarySearch(int[] arr, int target) {
+        int left = 0, right = arr.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == target) return mid;
+            else if (arr[mid] < target) left = mid + 1;
+            else right = mid - 1;
+        }
+        return -1;  // Target not found
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 20, 30, 40, 50};
+        int target = 30;
+        System.out.println("Index of " + target + ": " + binarySearch(arr, target));
+    }
+}
+2. Linked Lists
+2.1 Singly Linked List
+java
+Copy code
+class LinkedList {
+    Node head;
+
+    class Node {
+        int data;
+        Node next;
+
+        Node(int d) {
+            data = d;
+            next = null;
+        }
+    }
+
+    // Insert at the end
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node last = head;
+        while (last.next != null) {
+            last = last.next;
+        }
+        last.next = newNode;
+    }
+
+    // Print the list
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(10);
+        list.insert(20);
+        list.insert(30);
+        list.printList();  // Output: 10 20 30
+    }
+}
+2.2 Reversing a Linked List
+java
+Copy code
+class LinkedList {
+    Node head;
+
+    class Node {
+        int data;
+        Node next;
+
+        Node(int d) {
+            data = d;
+            next = null;
+        }
+    }
+
+    // Insert at the end
+    void insert(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+        Node last = head;
+        while (last.next != null) {
+            last = last.next;
+        }
+        last.next = newNode;
+    }
+
+    // Reverse the list
+    void reverse() {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
+    // Print the list
+    void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.insert(10);
+        list.insert(20);
+        list.insert(30);
+        list.printList();  // Output: 10 20 30
+        list.reverse();
+        list.printList();  // Output: 30 20 10
+    }
+}
+3. Stacks
+3.1 Stack Using Arrays
+java
+Copy code
+class Stack {
+    int maxSize;
+    int top;
+    int[] stack;
+
+    Stack(int size) {
+        maxSize = size;
+        stack = new int[size];
+        top = -1;
+    }
+
+    boolean isFull() {
+        return top == maxSize - 1;
+    }
+
+    boolean isEmpty() {
+        return top == -1;
+    }
+
+    void push(int data) {
+        if (isFull()) {
+            System.out.println("Stack Overflow");
+            return;
+        }
+        stack[++top] = data;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return stack[top--];
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty");
+            return -1;
+        }
+        return stack[top];
+    }
+
+    public static void main(String[] args) {
+        Stack s = new Stack(5);
+        s.push(10);
+        s.push(20);
+        System.out.println("Top element: " + s.peek());  // Output: 20
+        System.out.println("Popped: " + s.pop());  // Output: 20
+        System.out.println("Top element after pop: " + s.peek());  // Output: 10
+    }
+}
+4. Queues
+4.1 Queue Using Arrays
+java
+Copy code
+class Queue {
+    int front, rear, size;
+    int[] queue;
+    int capacity;
+
+    Queue(int size) {
+        capacity = size;
+        queue = new int[size];
+        front = 0;
+        rear = -1;
+        this.size = 0;
+    }
+
+    boolean isFull() {
+        return size == capacity;
+    }
+
+    boolean isEmpty() {
+        return size == 0;
+    }
+
+    void enqueue(int data) {
+        if (isFull()) {
+            System.out.println("Queue is full");
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        queue[rear] = data;
+        size++;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+        int item = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+
+    public static void main(String[] args) {
+        Queue q = new Queue(5);
+        q.enqueue(10);
+        q.enqueue(20);
+        System.out.println("Dequeued: " + q.dequeue());  // Output: 10
+        q.enqueue(30);
+        System.out.println("Dequeued: " + q.dequeue());  // Output: 20
+    }
+}
+5. Trees
+5.1 Binary Search Tree (BST) Insertion and Traversal
+java
+Copy code
+class BST {
+    class Node {
+        int data;
+        Node left, right;
+        Node(int item) {
+            data = item;
+            left = right = null;
+        }
+    }
+
+    Node root;
+
+    BST() {
+        root = null;
+    }
+
+    void insert(int data) {
+        root = insertRec(root, data);
+    }
+
+    Node insertRec(Node root, int data) {
+        if (root == null) {
+            root = new Node(data);
+            return root;
+        }
+        if (data < root.data) {
+            root.left = insertRec(root.left, data);
+        } else if (data > root.data) {
+            root.right = insertRec(root.right, data);
+        }
+        return root;
+    }
+
+    void inorder() {
+        inorderRec(root);
+    }
+
+    void inorderRec(Node root) {
+        if (root != null) {
+            inorderRec(root.left);
+            System.out.print(root.data + " ");
+            inorderRec(root.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        BST tree = new BST();
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+
+        System.out.print("Inorder traversal: ");
+        tree.inorder();  // Output: 20 30 40 50 60 70 80
+    }
+}
+6. Sorting Algorithms
+6.1 Bubble Sort
+java
+Copy code
+public class BubbleSort {
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {64, 34, 25, 12, 22, 11, 90};
+        bubbleSort(arr);
+        System.out.println("Sorted array: " + Arrays.toString(arr));
+    }
+}
+6.2 Quick Sort
+java
+Copy code
+public class QuickSort {
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    public static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = (low - 1);
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println("Sorted array: " + Arrays.toString(arr));
+    }
+}
